@@ -1,3 +1,4 @@
+<?php include('session.php'); ?>
 <!doctype html>
 <html lang="en">
 
@@ -27,27 +28,41 @@ $url =  $_SERVER['REQUEST_URI'];
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link px-3 text-dark <?php if ($url == '/pms/index.php') echo 'activeclr'; ?>" aria-current="page" href="index.php">Dashborad</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link px-3 text-dark <?php if ($url == '/pms/project.php') echo 'activeclr'; ?>" aria-current="page" href="project.php">Project</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link px-3 text-dark <?php if ($url == '/pms/user.php') echo 'activeclr'; ?>" href="user.php">User</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link px-3 text-dark <?php if ($url == '/pms/task.php') echo 'activeclr'; ?>" href="task.php">Task</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <form  action="login.php">
-                            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                    <?php
+                    if (isset($_SESSION['login_user'])) { ?>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link px-3 text-dark <?php if ($url == '/pms/index.php') echo 'activeclr'; ?>" aria-current="page" href="index.php">Dashborad</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link px-3 text-dark <?php if ($url == '/pms/project.php') echo 'activeclr'; ?>" aria-current="page" href="project.php">Project</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link px-3 text-dark <?php if ($url == '/pms/user.php') echo 'activeclr'; ?>" href="user.php">User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link px-3 text-dark <?php if ($url == '/pms/task.php') echo 'activeclr'; ?>" href="task.php">Task</a>
+                            </li>
+                        </ul>
+                    <?php } ?>
+                  
+                </div>
+                <ul class="fixed-end">
+                        <form action="login.php">
+                            <?php
+                            if (!isset($_SESSION['login_user'])) { ?>
+                                <button type="submit" class="btn btn-primary btn-sm mx-2">Login</button>
 
+                            <?php } ?>
+                        </form>
+                        <form action="logout.php">
+                            <?php
+                            if (isset($_SESSION['login_user'])) { ?>
+                                <button type="submit" class="btn btn-primary btn-sm">Logout</button>
+
+                            <?php } ?>
                         </form>
                     </ul>
-                </div>
             </div>
         </nav>
 

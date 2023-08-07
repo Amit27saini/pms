@@ -8,9 +8,8 @@ include('connection.php');
 $fgender = $_POST['fgender'];
 $fpassword_hash = password_hash($fpassword, 
 PASSWORD_DEFAULT);
- $sql="insert into users(full_name,email,password,user_type_id,gender)
+ $sql="insert into users(full_name,email,password,user_type_id,gender_id)
 values('$fullname','$email','$fpassword_hash','$fusertype','$fgender')";
-// echo $queary;
 $userresult=$conn->query($sql);
 if($userresult)
 header("Location: http://localhost/pms/add_user.php?success=1");

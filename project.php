@@ -1,7 +1,7 @@
 <?php
 include('header&footer/header.php');
 include('connection.php');
-include('session.php');
+// include('session.php');
 $sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status
 FROM new_projects
 INNER JOIN project_status
@@ -48,7 +48,7 @@ $result = $conn->query($sql);
                     <table class="table shadow table-hover table-sm align-middle table-responsive ">
                         <thead class="text-center ">
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">Id</th>
                                 <th scope="col">Project</th>
                                 <th scope="col">Project Details</th>
                                 <th scope="col">Duedate</th>
@@ -57,15 +57,26 @@ $result = $conn->query($sql);
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                            <?php $count=0?>
-                            <?php while ($user = $result->fetch_assoc()) { ?>
-                                <?php $_SESSION['projects']=$count++  ?>
+                           
+                            <?php while ($user = $result->fetch_assoc()) { $count++ ?>
                                 <tr class="text-center">
                                     <th scope="row"><?php echo $user['id'] ?></th>
                                     <td><?php echo $user['project'] ?></td>
                                     <td><?php echo $user['project_details'] ?></td>
                                     <td><?php echo $user['due_date'] ?></td>
-                                    <td><?php echo $user['status'] ?></td>
+                                    <?php if( $user['status']== "On-hold"){?>
+                                    <td><span class="badge bg-danger"><?php echo $user['status'] ?></td></td>
+                                    <?php }?>
+                                    <?php if( $user['status']== "On going"){?>
+                                    <td><span class="badge bg-warning"><?php echo $user['status'] ?></td></td>
+                                    <?php }?>
+                                    <?php if( $user['status']== "Completed"){?>
+                                    <td><span class="badge bg-success"><?php echo $user['status'] ?></td></td>
+                                    <?php }?>
+                                    <?php if( $user['status']== "Overdue"){?>
+                                    <td><span class="badge bg-primary"><?php echo $user['status'] ?></td></td>
+                                    <?php }?>   
+                                    
                                     <td>
                                         <button type="button" class="btn btn-success btn-sm"><b>view</b></button>
                                         <button type="button" class="btn btn-primary btn-sm" onclick="edit()"><b>Edit</b></button>
@@ -74,7 +85,7 @@ $result = $conn->query($sql);
 
 
                                 </tr>
-                            <?php } ?>
+                            <?php } echo $_SESSION['projects']= $count; ?>
                         </tbody>
                     </table>
                 </div>

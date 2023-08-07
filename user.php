@@ -58,7 +58,8 @@ $result = $conn->query($sql);
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                            <?php while ($user = $result->fetch_assoc()) { ?>
+                            <?php $count=0?>
+                            <?php while ($user = $result->fetch_assoc()) { $count++ ?>
                                 <tr class="text-center">
                                     <th scope="row"><?php echo $user['id'] ?></th>
                                     <td><?php echo $user['full_name'] ?></td>
@@ -71,7 +72,7 @@ $result = $conn->query($sql);
                                         <button type="button" class="btn btn-danger btn-sm" onclick="deleted()"><b>Delete</b></button>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php } echo $_SESSION['users']=$count?>
                         </tbody>
                     </table>
                 </div>

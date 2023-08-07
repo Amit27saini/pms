@@ -1,7 +1,7 @@
 <?php
 include('header&footer/header.php');
 include('connection.php');
-include('session.php');
+// include('session.php');
 $sql = "SELECT * FROM project_status";
 $result=$conn->query($sql);
 ?>
