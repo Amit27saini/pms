@@ -2,10 +2,12 @@
 include('header&footer/header.php');
 include('connection.php');
 // include('session.php');
-$sql = "SELECT users.id,users.full_name,users.email,users.user_type_id,users.gender, users_types.name
+$sql = "SELECT users.id,users.full_name,users.email,users.user_type_id,gender.type, users_types.name
 FROM users
 INNER JOIN users_types
-ON users.user_type_id = users_types.id";
+ON users.user_type_id = users_types.id
+ INNER JOIN gender
+ ON users.gender_id = gender.id ";
 $result = $conn->query($sql);
 ?>
 <div class="container">
@@ -62,14 +64,12 @@ $result = $conn->query($sql);
                                     <td><?php echo $user['full_name'] ?></td>
                                     <td><?php echo $user['email'] ?></td>
                                     <td><?php echo $user['name'] ?></td>
-                                    <td><?php echo $user['gender'] ?></td>
+                                    <td><?php echo $user['type'] ?></td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm" onclick="edit()"><b>Edit</b></button>
 
                                         <button type="button" class="btn btn-danger btn-sm" onclick="deleted()"><b>Delete</b></button>
                                     </td>
-
-
                                 </tr>
                             <?php } ?>
                         </tbody>

@@ -8,7 +8,7 @@ include('connection.php');
 $fgender = $_POST['fgender'];
 $fpassword_hash = password_hash($fpassword, 
 PASSWORD_DEFAULT);
- $sql="insert into add_user(full_name,email,password,user_type_id,gender)
+ $sql="insert into users(full_name,email,password,user_type_id,gender)
 values('$fullname','$email','$fpassword_hash','$fusertype','$fgender')";
 // echo $queary;
 $userresult=$conn->query($sql);

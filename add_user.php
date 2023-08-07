@@ -4,6 +4,8 @@ include('connection.php');
 include('session.php');
 $sql = "SELECT * FROM users_types";
 $result = $conn->query($sql);
+$sql_gen = "SELECT * FROM gender";
+$result_gen = $conn->query($sql_gen);
 ?>
 <div class="container">
     <div class="mt-4  py-1">
@@ -71,8 +73,9 @@ $result = $conn->query($sql);
                         <select id="fgender" name="fgender" class="form-select">
                             <option selected>Choose...</option>
                             </option>
-                            <option value="1">Male</option>
-                            <option value="0">Female</option>
+                            <?php while ($gender = $result_gen->fetch_assoc()) { ?>
+                                <option value="<?php echo $gender['id'] ?>"><?php echo $gender['type'] ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="col-12">
