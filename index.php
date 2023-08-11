@@ -106,7 +106,7 @@ $result = $conn->query($sql);
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
-                                        <?php while ($user = $result->fetch_assoc()) {?>
+                                        <?php while ($user = $result->fetch_assoc()) { ?>
                                             <tr class="text-center">
                                                 <!-- <th scope="row"><?php echo $user['id'] ?></th> -->
                                                 <td><?php echo $user['project'] ?></td>
@@ -129,7 +129,7 @@ $result = $conn->query($sql);
                                                     </td>
                                                 <?php } ?>
                                             </tr>
-                                        <?php }?>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -284,6 +284,8 @@ $result = $conn->query($sql);
 
         </div>
     </div>
-<?php } else
-    header("Loction:login.php"); ?>
-<?php include('header&footer/footer.php'); ?>
+<?php include('header&footer/footer.php'); } ?>
+<?php if (!isset($_SESSION['login_user'])) {
+    header("Location:login.php?1");
+}
+ ?>

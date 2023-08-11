@@ -5,6 +5,7 @@ include('connection.php');
 $sql = "SELECT * FROM project_status";
 $result=$conn->query($sql);
 ?>
+<?php if (isset($_SESSION['login_user'])) { ?>
 <div class="container">
     <div class="mt-4  py-1">
         <div class="row">
@@ -88,4 +89,9 @@ $result=$conn->query($sql);
     </div>
 
 </div>
-<?php include('header&footer/footer.php'); ?>
+<?php } ?>
+<?php
+if (!isset($_SESSION['login_user'])) {
+    header("Loction:login.php");
+} 
+include('header&footer/footer.php'); ?>

@@ -9,6 +9,7 @@ ON new_projects.status_id = project_status.id";
 $result = $conn->query($sql);
 
 ?>
+<?php if (isset($_SESSION['login_user'])) { ?>
 <div class="container">
 
     <div class="mt-3  ">
@@ -57,7 +58,7 @@ $result = $conn->query($sql);
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                           
+                           <?php $count=0?>
                             <?php while ($user = $result->fetch_assoc()) { $count++ ?>
                                 <tr class="text-center">
                                     <th scope="row"><?php echo $user['id'] ?></th>
@@ -95,4 +96,7 @@ $result = $conn->query($sql);
         </div>
     </div>
 </div>
-<?php include('header&footer/footer.php'); ?>
+<?php include('header&footer/footer.php');  } ?>
+<?php if (!isset($_SESSION['login_user'])) {
+    header("Location:login.php?1");
+}
