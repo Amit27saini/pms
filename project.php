@@ -59,7 +59,8 @@ $result = $conn->query($sql);
                         </thead>
                         <tbody class="table-group-divider">
                            <?php $count=0?>
-                            <?php while ($user = $result->fetch_assoc()) { $count++ ?>
+                            <?php while ($user = $result->fetch_assoc()) { $count++;?>
+                                <?php $id= $user['id'] ;?>
                                 <tr class="text-center">
                                     <th scope="row"><?php echo $user['id'] ?></th>
                                     <td><?php echo $user['project'] ?></td>
@@ -80,7 +81,7 @@ $result = $conn->query($sql);
                                     
                                     <td>
                                         <button type="button" class="btn btn-success btn-sm"><b>view</b></button>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="edit()"><b>Edit</b></button>
+                                        <a type="button" class="btn btn-primary btn-sm" href="pedit.php?id=<?php echo $id?>"><b>Edit</b></a>
                                         <button type="button" class="btn btn-danger btn-sm" onclick="deleted()"><b>Delete</b></button>
                                     </td>
 
