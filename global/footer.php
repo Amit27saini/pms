@@ -6,10 +6,10 @@
             <!-- Grid row -->
             <div class="row ">
                 <!-- Grid column -->
-                <div class="col-md-4 col-lg-4 col-xl-3 mx-auto ">
+                <div class="col-md-4 col-lg-4 col-xl-3">
                     <!-- Content -->
                     <div>
-                        <img src="images/pmslogo.png" width="150">
+                        <img src="<?php echo $link ?>global/images/pmslogo.png" width="150">
                     </div>
                 </div>
                 <!-- Grid column -->
@@ -54,7 +54,7 @@
 
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-       Amit Saini © Copyright 2023 | All Rights Reserved
+       © Copyright 2023 | Project Management System
     </div>
     <!-- Copyright -->
 </footer>

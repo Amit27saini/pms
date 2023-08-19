@@ -1,6 +1,6 @@
 <?php
-include('session.php');
-include('connection.php');
+session_start();
+include('../global/connection.php');
 $fproject= $_POST['fproject'];
 $fdetails =$_POST['fdetails'];
 $duedate =$_POST['duedate'];

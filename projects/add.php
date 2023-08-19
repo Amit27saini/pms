@@ -1,34 +1,12 @@
 <?php
-include('header&footer/header.php');
-include('connection.php');
-// include('session.php');
-// get all projects  data
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $query = "SELECT * FROM new_projects where id='$id'";
-    $project_result = $conn->query($query);
-    $project_row = $project_result->fetch_assoc();
-    echo $project_row['project'];
+include('../global/header.php');
+if (!isset($_SESSION['login_user'])) {
+    header("Loction:login.php");
 }
-// get all projects status type
+include('../global/connection.php');
+// get project_status type
 $sql = "SELECT * FROM project_status";
 $result = $conn->query($sql);
-// post  all projects  updated data
-if(isset($_POST['fproject']) && isset($_POST['fdetails']))
-{
-    $fproject= $_POST['fproject'];
-    $fdetails =$_POST['fdetails'];
-    $duedate =$_POST['duedate'];
-    $fstatus =$_POST['fstatus'];
-    $fdes = $_POST['fdes'];
-    $sqlqueary="UPDATE new_projects SET project='$fproject',project_details='$fdetails',due_date='$duedate', status_id='$fstatus',description='$fdes' WHERE id='$id'";
-    $result = $conn->query($sqlqueary);
-    if($result)
-    header("Location: http://localhost/pms/project.php?success=1");
-    else
-    header("Location: http://localhost/pms/project.php?success=0");
-}
-
 ?>
 <?php if (isset($_SESSION['login_user'])) { ?>
     <div class="container">
@@ -66,34 +44,34 @@ if(isset($_POST['fproject']) && isset($_POST['fdetails']))
                         <h2> Add New Project</h2>
                     </div>
 
-                    <form action="" method="post" class="row g-3">
+                    <form action="insert.php" method="post" class="row g-3">
                         <div class="col-md-6">
                             <label for="inputtext" class="form-label">Project</label>
-                            <input type="text" class="form-control" id="inputproject" value="<?php echo $project_row['project']?>" name="fproject" placeholder="Enter Project Name">
+                            <input type="text" class="form-control" id="inputproject" name="fproject" placeholder="Enter Project Name">
                         </div>
 
                         <div class="col-6">
                             <label for="inputAddress" class="form-label">Project Details</label>
-                            <input type="text" class="form-control" id="inputAddress" value="<?php echo $project_row['project_details']?>" name="fdetails" placeholder="Project Details">
+                            <input type="text" class="form-control" id="inputAddress" name="fdetails" placeholder="Project Details">
                         </div>
 
                         <div class="col-md-6">
                             <label for="inputedate" class="form-label">Due Date</label>
-                            <input type="date" class="form-control" value="<?php echo $project_row['due_date']?>"    name="duedate" id="duedate">
+                            <input type="date" class="form-control" name="duedate" id="duedate">
                         </div>
                         <div class="col-md-6">
                             <label for="inputStatus" class="form-label">status</label>
                             <select id="inputStatus" name="fstatus" class="form-select">
                                 <option selected>Choose...</option>
                                 <?php while ($row = $result->fetch_assoc()) { ?>
-                                    <option value="<?php echo $row['id'] ?>" <?php if($project_row['status_id']==$row['id']) echo 'selected' ?>><?php echo $row['status'] ?></option>
+                                    <option value="<?php echo $row['id'] ?>"><?php echo $row['status'] ?></option>
                                 <?php } ?>
                             </select>
                         </div>
 
                         <div class="col-md-12">
                             <label for="Details" class="form-label">Description</label>
-                            <textarea type="text" class="form-control" id="inputDetails" name="fdes" placeholder="Description"><?php echo $project_row['description']?></textarea>
+                            <textarea type="text" class="form-control" id="inputDetails" name="fdes" placeholder="Description"></textarea>
                         </div>
                         <div class="col-12">
                             <div class="form-check">
@@ -114,9 +92,4 @@ if(isset($_POST['fproject']) && isset($_POST['fdetails']))
         </div>
 
     </div>
-<?php } ?>
-<?php
-if (!isset($_SESSION['login_user'])) {
-    header("Loction:login.php");
-}
-include('header&footer/footer.php'); ?>
+<?php } include('../global/footer.php'); ?>

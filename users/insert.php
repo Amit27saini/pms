@@ -1,6 +1,6 @@
 <?php
-include('session.php');
-include('connection.php');
+session_start();
+include('../global/connection.php');
  $fullname = $_POST['fullname']; 
  $email = $_POST['femail'];
  $fpassword = $_POST['fpassword'];

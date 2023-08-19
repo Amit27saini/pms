@@ -1,6 +1,6 @@
 <?php
-include('header&footer/header.php');
-include('connection.php');
+include('global/header.php');
+include('global/connection.php');
 $sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status
 FROM new_projects
 INNER JOIN project_status
@@ -202,7 +202,7 @@ $result = $conn->query($sql);
                 <div class=" border text-center text-primary  pt-2" style="background-color: white;">
                     <div>
                         <h3>workload</h3>
-                        <img src="images/workloadimg.jpg" width="540" alt="">
+                        <img src="<?php $link?>global/images/workloadimg.jpg" width="540" alt="">
                     </div>
                 </div>
 
@@ -284,7 +284,7 @@ $result = $conn->query($sql);
 
         </div>
     </div>
-<?php include('header&footer/footer.php'); } ?>
+<?php include('global/footer.php'); } ?>
 <?php if (!isset($_SESSION['login_user'])) {
     header("Location:login.php?1");
 }

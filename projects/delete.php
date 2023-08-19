@@ -1,11 +1,11 @@
 <!-- project delete query -->
 <?php
-include('session.php');
-include('connection.php');
+session_start();
+include('../global/connection.php');
 if(isset($_GET['id']))
 echo $id=$_GET['id'];
 $query = "DELETE FROM new_projects WHERE id='$id'";
 $result = $conn->query($query);
 if($result)
-header("Location: http://localhost/pms/project.php?deleted=1");
+header("Location: index.php?deleted=1");
 ?>     

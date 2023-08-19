@@ -1,7 +1,6 @@
 <?php
-include('header&footer/header.php');
-include('connection.php');
-// include('session.php');
+include('global/header.php');
+include('global/connection.php');
 ?>
 <div class="container">
     <div class=" ">
@@ -31,4 +30,4 @@ include('connection.php');
     </div>
 
 </div>
-<?php include('header&footer/footer.php'); ?>
+<?php include('global/footer.php'); ?>

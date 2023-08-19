@@ -1,7 +1,10 @@
 
 <?php
-include('header&footer/header.php');
-include('connection.php');
+include('../global/header.php');
+if (!isset($_SESSION['login_user'])) {
+    header("Location: http://localhost/pms/login.php?1");
+}
+include('../global/connection.php');
 // include('session.php');
 $sql = "SELECT users.id,users.full_name,users.email,users.user_type_id,gender.type, users_types.name
 FROM users
@@ -25,19 +28,27 @@ $result = $conn->query($sql);
                 </div>
             </div>
         </div>
-        <div id="demo">
-            <div class="alert alert-warning alert-dismissible fade show hide" id="alert" role="alert">
-                <strong>You pressed OK!</strong>
+        <?php
+        if (isset($_GET['success']) && $_GET['success'] == 1) { ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong> Successfully updated!</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>`
-        </div>
+            </div>
+        <?php } ?>
+        <?php
+        if (isset($_GET['deleted']) && $_GET['deleted'] == 1) { ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong> Successfully deleted!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php } ?>
 
         <div class="mb-5">
             <div class=" container">
                 <div class="row ">
                     <div class="col">
                         <div class="text-end">
-                            <form action="add_user.php">
+                            <form action="add.php">
                                 <button type="submit" class="btn btn-hv btn-clr"><b>New User</b></button>
                             </form>
                         </div>
@@ -61,8 +72,8 @@ $result = $conn->query($sql);
                             </thead>
                             <tbody class="table-group-divider">
                                 <?php $count = 0 ?>
-                                <?php while ($user = $result->fetch_assoc()) {
-                                    $count++ ?>
+                                <?php while ($user = $result->fetch_assoc()) { 
+                                    $count++; $id=$user['id'] ?>
                                     <tr class="text-center">
                                         <th scope="row"><?php echo $user['id'] ?></th>
                                         <td><?php echo $user['full_name'] ?></td>
@@ -70,9 +81,9 @@ $result = $conn->query($sql);
                                         <td><?php echo $user['name'] ?></td>
                                         <td><?php echo $user['type'] ?></td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm" onclick="edit()"><b>Edit</b></button>
+                                            <a type="button" class="btn btn-primary btn-sm" href="edit.php?id=<?php echo $id ?>"><b>Edit</b></a>
 
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="deleted()"><b>Delete</b></button>
+                                            <a type="button" class="btn btn-danger btn-sm" href="delete.php?id=<?php echo $id ?>"><b>Delete</b></a>
                                         </td>
                                     </tr>
                                 <?php }
@@ -86,9 +97,5 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
-    <?php include('header&footer/footer.php');?>
-<?php } ?>
-
-<?php if (!isset($_SESSION['login_user'])) {
-    header("Location:login.php?1");
-}
+    <?php } include('../global/footer.php'); ?>
+   

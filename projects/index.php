@@ -1,7 +1,10 @@
 <?php
-include('header&footer/header.php');
-include('connection.php');
-// include('session.php');
+include('../global/header.php');
+if (!isset($_SESSION['login_user'])) {
+    header("Location:login.php?1");
+}
+include('../global/connection.php');
+//get project data in table with the help of innner join
 $sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status
 FROM new_projects
 INNER JOIN project_status
@@ -100,11 +103,9 @@ $result = $conn->query($sql);
 
                                         <td>
                                             <button type="button" class="btn btn-success btn-sm"><b>view</b></button>
-                                            <a type="button" class="btn btn-primary btn-sm" href="pedit.php?id=<?php echo $id ?>"><b>Edit</b></a>
-                                            <a type="button" class="btn btn-danger btn-sm" href="project_delete.php?id=<?php echo $id ?>"><b>Delete</b></a>
+                                            <a type="button" class="btn btn-primary btn-sm" href="edit.php?id=<?php echo $id ?>"><b>Edit</b></a>
+                                            <a type="button" class="btn btn-danger btn-sm" href="delete.php?id=<?php echo $id ?>"><b>Delete</b></a>
                                         </td>
-
-
                                     </tr>
                                 <?php }
                                 echo $_SESSION['projects'] = $count; ?>
@@ -117,8 +118,5 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
-<?php include('header&footer/footer.php');
+<?php include('../global/footer.php');
 } ?>
-<?php if (!isset($_SESSION['login_user'])) {
-    header("Location:login.php?1");
-}
