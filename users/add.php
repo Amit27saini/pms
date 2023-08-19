@@ -47,7 +47,7 @@ $result_gen = $conn->query($sql_gen);
                         <h2> Add New User</h2>
                     </div>
 
-                    <form action="insert_user.php" method="post" class="row g-3">
+                    <form action="insert.php" method="post" class="row g-3">
                         <div class="col-md-6">
                             <label for="fullname" class="form-label">Full Name</label>
                             <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter full Name">

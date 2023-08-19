@@ -12,7 +12,7 @@ PASSWORD_DEFAULT);
 values('$fullname','$email','$fpassword_hash','$fusertype','$fgender')";
 $userresult=$conn->query($sql);
 if($userresult)
-header("Location: http://localhost/pms/add_user.php?success=1");
+header("Location: index.php?success=1");
 else
-header("Location: http://localhost/pms/add_user.php?success=0");
+header("Location: index.php?success=0");
 ?>     

@@ -11,7 +11,7 @@ FROM users
 INNER JOIN users_types
 ON users.user_type_id = users_types.id
  INNER JOIN gender
- ON users.gender_id = gender.id ";
+ ON users.gender_id = gender.id ORDER BY users.id DESC ";
 $result = $conn->query($sql);
 ?>
 <?php if (isset($_SESSION['login_user'])) { ?>
@@ -48,7 +48,7 @@ $result = $conn->query($sql);
                 <div class="row ">
                     <div class="col">
                         <div class="text-end">
-                            <form action="add.php">
+                            <form action=" add.php">
                                 <button type="submit" class="btn btn-hv btn-clr"><b>New User</b></button>
                             </form>
                         </div>

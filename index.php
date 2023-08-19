@@ -4,7 +4,7 @@ include('global/connection.php');
 $sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status
 FROM new_projects
 INNER JOIN project_status
-ON new_projects.status_id = project_status.id";
+ON new_projects.status_id = project_status.id ORDER BY new_projects.id DESC";
 $result = $conn->query($sql);
 ?>
 <?php if (isset($_SESSION['login_user'])) { ?>

@@ -10,7 +10,7 @@ $sqlqueary="insert into new_projects(project,project_details,due_date,status_id,
 values('$fproject','$fdetails','$duedate','$fstatus','$fdes')";
 $result = $conn->query($sqlqueary);
 if($result)
-header("Location: http://localhost/pms/add.php?success=1");
+header("Location: index.php?success=1");
 else
-header("Location: http://localhost/pms/add.php?success=0");
+header("Location: index.php?success=0");
 ?>     

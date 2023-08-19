@@ -8,7 +8,7 @@ include('../global/connection.php');
 $sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status
 FROM new_projects
 INNER JOIN project_status
-ON new_projects.status_id = project_status.id";
+ON new_projects.status_id = project_status.id ORDER BY new_projects.id DESC";
 $result = $conn->query($sql);
 
 ?>
@@ -102,7 +102,7 @@ $result = $conn->query($sql);
                                         <?php } ?>
 
                                         <td>
-                                            <button type="button" class="btn btn-success btn-sm"><b>view</b></button>
+                                            <a type="button" class="btn btn-success btn-sm" href="view.php?id=<?php echo $id ?>"><b>view</b></a>
                                             <a type="button" class="btn btn-primary btn-sm" href="edit.php?id=<?php echo $id ?>"><b>Edit</b></a>
                                             <a type="button" class="btn btn-danger btn-sm" href="delete.php?id=<?php echo $id ?>"><b>Delete</b></a>
                                         </td>
