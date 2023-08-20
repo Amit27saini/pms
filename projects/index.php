@@ -5,7 +5,7 @@ if (!isset($_SESSION['login_user'])) {
 }
 include('../global/connection.php');
 //get project data in table with the help of innner join
-$sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status
+$sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status,project_status.color
 FROM new_projects
 INNER JOIN project_status
 ON new_projects.status_id = project_status.id ORDER BY new_projects.id DESC";
@@ -80,27 +80,12 @@ $result = $conn->query($sql);
                                     $count++; ?>
                                     <?php $id = $user['id']; ?>
                                     <tr class="text-center">
-                                        <th scope="row"><?php echo $user['id'] ?></th>
+                                        <th scope="row"><span  class="badge badge-sm bg-secondary " ><?php echo $user['id'] ?></span></th>
+                                        
                                         <td><?php echo $user['project'] ?></td>
                                         <td><?php echo $user['project_details'] ?></td>
                                         <td><?php echo $user['due_date'] ?></td>
-                                        <?php if ($user['status'] == "On-hold") { ?>
-                                            <td><span class="badge bg-danger"><?php echo $user['status'] ?></td>
-                                            </td>
-                                        <?php } ?>
-                                        <?php if ($user['status'] == "On going") { ?>
-                                            <td><span class="badge bg-warning"><?php echo $user['status'] ?></td>
-                                            </td>
-                                        <?php } ?>
-                                        <?php if ($user['status'] == "Completed") { ?>
-                                            <td><span class="badge bg-success"><?php echo $user['status'] ?></td>
-                                            </td>
-                                        <?php } ?>
-                                        <?php if ($user['status'] == "Overdue") { ?>
-                                            <td><span class="badge bg-primary"><?php echo $user['status'] ?></td>
-                                            </td>
-                                        <?php } ?>
-
+                                        <td><span class="badge bg-<?php echo $user['color'] ?>"><?php echo $user['status'] ?></td>
                                         <td>
                                             <a type="button" class="btn btn-success btn-sm" href="view.php?id=<?php echo $id ?>"><b>view</b></a>
                                             <a type="button" class="btn btn-primary btn-sm" href="edit.php?id=<?php echo $id ?>"><b>Edit</b></a>

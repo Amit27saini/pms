@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="text-center text-lg-start nav-color text-muted ">
-   <!-- Section: Links  -->
+    <!-- Section: Links  -->
     <section class="pt-1">
         <div class="container text-center text-md-start mt-5">
             <!-- Grid row -->
@@ -54,13 +54,17 @@
 
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-       © Copyright 2023 | Project Management System
+        © Copyright 2023 | Project Management System
     </div>
     <!-- Copyright -->
 </footer>
 <!-- Footer -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script src="script.js"></script>
+<script src="<?php echo $link ?>global/js/script.js"></script>
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
 </body>
 
 </html>

@@ -75,7 +75,7 @@ $result = $conn->query($sql);
                                 <?php while ($user = $result->fetch_assoc()) { 
                                     $count++; $id=$user['id'] ?>
                                     <tr class="text-center">
-                                        <th scope="row"><?php echo $user['id'] ?></th>
+                                        <th scope="row"><span  class="badge badge-sm bg-secondary " ><?php echo $user['id'] ?></span></th>
                                         <td><?php echo $user['full_name'] ?></td>
                                         <td><?php echo $user['email'] ?></td>
                                         <td><?php echo $user['name'] ?></td>

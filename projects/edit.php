@@ -37,7 +37,7 @@ if(isset($_POST['fproject']) && isset($_POST['fdetails']))
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item "><a href="index.php" class="text-decoration-none"><b>Project</b></a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><b>Add Project</b></li>
+                            <li class="breadcrumb-item active" aria-current="page"><b>Edit Project</b></li>
                         </ol>
                     </nav>
                 </div>

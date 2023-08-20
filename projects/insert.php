@@ -6,9 +6,9 @@ $fdetails =$_POST['fdetails'];
 $duedate =$_POST['duedate'];
 $fstatus =$_POST['fstatus'];
 $fdes = $_POST['fdes'];
-$sqlqueary="insert into new_projects(project,project_details,due_date,status_id,description)
+$sqlquery="insert into new_projects(project,project_details,due_date,status_id,description)
 values('$fproject','$fdetails','$duedate','$fstatus','$fdes')";
-$result = $conn->query($sqlqueary);
+$result = $conn->query($sqlquery);
 if($result)
 header("Location: index.php?success=1");
 else

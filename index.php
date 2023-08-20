@@ -1,7 +1,7 @@
 <?php
 include('global/header.php');
 include('global/connection.php');
-$sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status
+$sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status,project_status.color
 FROM new_projects
 INNER JOIN project_status
 ON new_projects.status_id = project_status.id ORDER BY new_projects.id DESC";
@@ -30,7 +30,7 @@ $result = $conn->query($sql);
                             </button>
                         </div>
                         <div class="col">
-                            <img src="images/projecticon.png" class=" w-50" alt="">
+                            <img src="<?php echo $link ?>global/images/projecticon.png" class=" w-50" alt="">
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@ $result = $conn->query($sql);
                             </button>
                         </div>
                         <div class="col">
-                            <img src="images/usericon.png" class="w-50" alt="">
+                            <img src="<?php echo $link ?>global/images/usericon.png" class="w-50" alt="">
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@ $result = $conn->query($sql);
                             <button type="button" class="btn btn-success">view</button>
                         </div>
                         <div class="col">
-                            <img src="images/taskicon.png" class="w-50" alt="">
+                            <img src="<?php echo $link ?>global/images/taskicon.png" class="w-50" alt="">
                         </div>
                     </div>
 
@@ -78,7 +78,7 @@ $result = $conn->query($sql);
                             </div>
                         </div>
                         <div class="col-5">
-                            <img src="images/activeicon.png" class="w-50" alt="">
+                            <img src="<?php echo $link ?>global/images/activeicon.png" class="w-50" alt="">
                         </div>
 
                     </div>
@@ -112,22 +112,7 @@ $result = $conn->query($sql);
                                                 <td><?php echo $user['project'] ?></td>
                                                 <td><?php echo $user['project_details'] ?></td>
                                                 <td><?php echo $user['due_date'] ?></td>
-                                                <?php if ($user['status'] == "On-hold") { ?>
-                                                    <td><span class="badge bg-danger"><?php echo $user['status'] ?></td>
-                                                    </td>
-                                                <?php } ?>
-                                                <?php if ($user['status'] == "On going") { ?>
-                                                    <td><span class="badge bg-warning"><?php echo $user['status'] ?></td>
-                                                    </td>
-                                                <?php } ?>
-                                                <?php if ($user['status'] == "Completed") { ?>
-                                                    <td><span class="badge bg-success"><?php echo $user['status'] ?></td>
-                                                    </td>
-                                                <?php } ?>
-                                                <?php if ($user['status'] == "Overdue") { ?>
-                                                    <td><span class="badge bg-primary"><?php echo $user['status'] ?></td>
-                                                    </td>
-                                                <?php } ?>
+                                                <td><span class="badge bg-<?php echo $user['color'] ?>"><?php echo $user['status'] ?></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -202,7 +187,7 @@ $result = $conn->query($sql);
                 <div class=" border text-center text-primary  pt-2" style="background-color: white;">
                     <div>
                         <h3>workload</h3>
-                        <img src="<?php $link?>global/images/workloadimg.jpg" width="540" alt="">
+                        <img src="<?php $link ?>global/images/workloadimg.jpg" width="540" alt="">
                     </div>
                 </div>
 
@@ -284,8 +269,9 @@ $result = $conn->query($sql);
 
         </div>
     </div>
-<?php include('global/footer.php'); } ?>
+<?php include('global/footer.php');
+} ?>
 <?php if (!isset($_SESSION['login_user'])) {
     header("Location:login.php?1");
 }
- ?>
+?>
