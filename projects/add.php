@@ -45,45 +45,47 @@ $result = $conn->query($sql);
                     </div>
 
                     <form action="insert.php" method="post" class="row g-3">
-                        <div class="col-md-6">
-                            <label for="inputtext" class="form-label">Project</label>
-                            <input type="text" class="form-control" id="inputproject" name="fproject" placeholder="Enter Project Name">
-                        </div>
-
-                        <div class="col-6">
-                            <label for="inputAddress" class="form-label">Project Details</label>
-                            <input type="text" class="form-control" id="inputAddress" name="fdetails" placeholder="Project Details">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="inputedate" class="form-label">Due Date</label>
-                            <input type="date" class="form-control" name="duedate" id="duedate">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputStatus" class="form-label">status</label>
-                            <select id="inputStatus" name="fstatus" class="form-select">
-                                <option selected>Choose...</option>
-                                <?php while ($row = $result->fetch_assoc()) { ?>
-                                    <option value="<?php echo $row['id'] ?>"><?php echo $row['status'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-
-                        <div class="col-md-12">
-                            <label for="Details" class="form-label">Description</label>
-                            <textarea type="text" class="form-control" id="inputDetails" name="fdes" placeholder="Description"></textarea>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="inputtext" class="form-label">Project</label>
+                                <input type="text" class="form-control" id="inputproject" name="fproject" placeholder="Enter Project Name">
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" id="pjtbtn" class="btn btn-clr btn-hv">Add</button>
 
+                            <div class="col-6">
+                                <label for="inputAddress" class="form-label">Project Details</label>
+                                <input type="text" class="form-control" id="inputAddress" name="fdetails" placeholder="Project Details">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputedate" class="form-label">Due Date</label>
+                                <input type="date" class="form-control" name="duedate" id="duedate">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputStatus" class="form-label">status</label>
+                                <select id="inputStatus" name="fstatus" class="form-select">
+                                    <option selected>Choose...</option>
+                                    <?php while ($row = $result->fetch_assoc()) { ?>
+                                        <option value="<?php echo $row['id'] ?>"><?php echo $row['status'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="Details" class="form-label">Description</label>
+                                <textarea type="text" class="form-control" id="inputDetails" name="fdes" placeholder="Description"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                        Check me out
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" id="pjtbtn" class="btn btn-clr btn-hv">Add</button>
+
+                            </div>
                         </div>
                     </form>
 
@@ -92,4 +94,5 @@ $result = $conn->query($sql);
         </div>
 
     </div>
-<?php } include('../global/footer.php'); ?>
+<?php }
+include('../global/footer.php'); ?>
