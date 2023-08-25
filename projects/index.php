@@ -8,7 +8,7 @@ include('../global/connection.php');
 // if(isset($_POST['flimit']))
 // $limit = $_POST['flimit'];
 // else
-$limit = 8;
+$limit = 6;
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];

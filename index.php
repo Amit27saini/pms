@@ -1,12 +1,32 @@
 <?php
 include('global/header.php');
 include('global/connection.php');
+// project table data
+$query = " SELECT * from new_projects";
+$pagination = $conn->query($query);
+$total_record = mysqli_num_rows($pagination);
+//get project data in table with the help of innner join
+// if(isset($_POST['flimit']))
+// $limit = $_POST['flimit'];
+// else
+$limit = 6;
+
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else
+    $page = 1;
+
+echo $offset = ($page - 1) * $limit;
+
 $sql = "SELECT new_projects.id,new_projects.project,new_projects.project_details,new_projects.due_date,project_status.status,project_status.color
 FROM new_projects
 INNER JOIN project_status
-ON new_projects.status_id = project_status.id ORDER BY new_projects.id DESC";
+ON new_projects.status_id = project_status.id ORDER BY new_projects.id DESC LIMIt {$offset},{$limit}";
 $result = $conn->query($sql);
+// project table data
 ?>
+
+
 <?php if (isset($_SESSION['login_user'])) { ?>
     <div class="container">
         <div class="my-3 bg-light p-3">
@@ -23,9 +43,9 @@ $result = $conn->query($sql);
                             <button type="button" class="btn btn-success position-relative">
                                 view
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    <?php if (isset($_SESSION['projects']))
-                                        echo $_SESSION['projects'];
-                                    ?>
+                                    <?php
+                                    echo $total_record; ?>
+
                                 </span>
                             </button>
                         </div>
@@ -117,6 +137,33 @@ $result = $conn->query($sql);
                                         <?php } ?>
                                     </tbody>
                                 </table>
+                                <!-- pagination -->
+                                <?php
+
+                                if ($total_record > 0) {
+                                    $total_record;
+                                    $total_page = ceil($total_record / $limit);
+                                    echo '<ul class="pagination">';
+                                    if ($page > 1) {
+                                        echo '<li class="page-item">
+                                <a class="page-link" href="index.php?page=' . ($page - 1) . '" tabindex="-1">Previous</a>
+                            </li>';
+                                    }
+                                    for ($i = 1; $i <= $total_page; $i++) {
+                                        if ($i ==  $page)
+                                            $active = "active";
+                                        else
+                                            $active = "";
+                                        echo '<li class="page-item ' . $active . '"><a class="page-link" href="index.php?page=' . $i . '" >' . $i . '</a></li>';
+                                    }
+                                    if ($total_page > $page) {
+                                        echo '<li class="page-item">
+                            <a class="page-link" href="index.php?page=' . ($page + 1) . '" >Next</a>
+                             </li>';
+                                    }
+
+                                    echo ' </ul>';
+                                } ?>
                             </div>
 
                         </div>

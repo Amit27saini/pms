@@ -1,9 +1,10 @@
 <?php
 include('../global/header.php');
-if (!isset($_SESSION['login_user'])) {
-    header("Loction:login.php");
-}
+
 include('../global/connection.php');
+if (!isset($_SESSION['login_user'])) {
+    header("Loction:/login.php");
+}
 // get project_status type
 $sql = "SELECT * FROM project_status";
 $result = $conn->query($sql);

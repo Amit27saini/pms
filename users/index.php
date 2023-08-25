@@ -1,17 +1,29 @@
-
 <?php
 include('../global/header.php');
+
+include('../global/connection.php');
 if (!isset($_SESSION['login_user'])) {
     header("Location: http://localhost/pms/login.php?1");
 }
-include('../global/connection.php');
+//get project data in table with the help of innner join
+// if(isset($_POST['flimit']))
+// $limit = $_POST['flimit'];
+// else
+$limit = 6;
+
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else
+    $page = 1;
+
+echo $offset = ($page - 1) * $limit;
 // include('session.php');
 $sql = "SELECT users.id,users.full_name,users.email,users.user_type_id,gender.type, users_types.name
 FROM users
 INNER JOIN users_types
 ON users.user_type_id = users_types.id
  INNER JOIN gender
- ON users.gender_id = gender.id ORDER BY users.id DESC ";
+ ON users.gender_id = gender.id ORDER BY users.id DESC LIMIt {$offset},{$limit} ";
 $result = $conn->query($sql);
 ?>
 <?php if (isset($_SESSION['login_user'])) { ?>
@@ -72,10 +84,11 @@ $result = $conn->query($sql);
                             </thead>
                             <tbody class="table-group-divider">
                                 <?php $count = 0 ?>
-                                <?php while ($user = $result->fetch_assoc()) { 
-                                    $count++; $id=$user['id'] ?>
+                                <?php while ($user = $result->fetch_assoc()) {
+                                    $count++;
+                                    $id = $user['id'] ?>
                                     <tr class="text-center">
-                                        <th scope="row"><span  class="badge badge-sm bg-secondary " ><?php echo $user['id'] ?></span></th>
+                                        <th scope="row"><span class="badge badge-sm bg-secondary "><?php echo $user['id'] ?></span></th>
                                         <td><?php echo $user['full_name'] ?></td>
                                         <td><?php echo $user['email'] ?></td>
                                         <td><?php echo $user['name'] ?></td>
@@ -90,6 +103,35 @@ $result = $conn->query($sql);
                                 echo $_SESSION['users'] = $count ?>
                             </tbody>
                         </table>
+                         <!-- pagination -->
+                         <?php
+                        $query = " SELECT * from users";
+                        $pagination = $conn->query($query);
+                        $total_record = mysqli_num_rows($pagination);
+                        if ($total_record > 0) {
+                            $total_record;
+                            $total_page = ceil($total_record / $limit);
+                            echo '<ul class="pagination">';
+                            if ($page > 1) {
+                                echo '<li class="page-item">
+                                <a class="page-link" href="' . $link . 'users/index.php?page=' . ($page - 1) . '" tabindex="-1">Previous</a>
+                            </li>';
+                            }
+                            for ($i = 1; $i <= $total_page; $i++) {
+                                if ($i ==  $page)
+                                    $active = "active";
+                                else
+                                    $active = "";
+                                echo '<li class="page-item ' . $active . '"><a class="page-link" href="' . $link . 'users/index.php?page=' . $i . '" >' . $i . '</a></li>';
+                            }
+                            if ($total_page > $page) {
+                                echo '<li class="page-item">
+                            <a class="page-link" href="' . $link . 'users/index.php?page=' . ($page + 1) . '" >Next</a>
+                             </li>';
+                            }
+
+                            echo ' </ul>';
+                        } ?>
                     </div>
 
                 </div>
@@ -97,5 +139,5 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
-    <?php } include('../global/footer.php'); ?>
-   
+<?php }
+include('../global/footer.php'); ?>

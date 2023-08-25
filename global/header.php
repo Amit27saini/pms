@@ -36,10 +36,11 @@ $url =  $_SERVER['REQUEST_URI'];
                                 <a class="nav-link px-3 text-dark <?php if ($url == '/pms/index.php') echo 'activeclr'; ?>" aria-current="page" href="<?php echo $link ?>">Dashborad</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link px-3 text-dark <?php if ($url == '/pms/project.php') echo 'activeclr'; ?>" aria-current="page" href="<?php echo $link ?>projects">Project</a>
+                                <a class="nav-link px-3 text-dark <?php if ($url == '/pms/projects/index
+                                .php') echo 'activeclr'; ?>" aria-current="page" href="<?php echo $link ?>projects">Project</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link px-3 text-dark <?php if ($url == '/pms/user.php') echo 'activeclr'; ?>" href="<?php echo $link ?>users">User</a>
+                                <a class="nav-link px-3 text-dark <?php if ($url == '/pms/projects/user.php') echo 'activeclr'; ?>" href="<?php echo $link ?>users">User</a>
                             </li>
                         </ul>
                     <?php } ?>

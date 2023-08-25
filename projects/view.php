@@ -4,6 +4,19 @@ if (!isset($_SESSION['login_user'])) {
     header("Location:login.php?1");
 }
 include('../global/connection.php');
+// pagination
+//get project data in table with the help of innner join
+// if(isset($_POST['flimit']))
+// $limit = $_POST['flimit'];
+// else
+$limit = 3;
+
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else
+    $page = 1;
+
+echo $offset = ($page - 1) * $limit;
 // get project data by id 
 if (isset($_GET['id'])) {
     $project_id = $_GET['id'];
@@ -21,7 +34,7 @@ $result = $conn->query($sql);
 $task_sql = "SELECT tasks.id,tasks.name,tasks.task_details,users.full_name
      FROM tasks
      INNER JOIN users
-     ON tasks.user_id = users.id where tasks.project_id='$project_id'";
+     ON tasks.user_id = users.id where tasks.project_id='$project_id' LIMIt {$offset},{$limit} ";
 $tresult = $conn->query($task_sql);
 ?>
 <div class=" container">
@@ -110,8 +123,7 @@ $tresult = $conn->query($task_sql);
                 <div class=" col-5">
                     <div class="card ">
                         <div class="card-header text-info-emphasis">
-                            <h5 class="badge badge-sm bg-danger " data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Project Id">
-                                # <?php echo $project['id'] ?>
+                            <h5 class="badge badge-sm bg-danger " data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Project Id"><?php echo $project['id'] ?>
                             </h5>
                         </div>
                         <div class="card-body">
@@ -164,7 +176,7 @@ $tresult = $conn->query($task_sql);
                                     <td><?php echo $task['full_name'] ?></td>
                                     <td>
                                         <!-- <a type="button" class="btn btn-success btn-sm" href="view.php?task-id="><b>Mark</b></a> -->
-                                        <a type="button" class="btn btn-primary btn-sm"  href="task-edit.php?task-id=<?php echo $task_id  ?>&project-id=<?php echo $project_id ?>"><b>Edit</b></a>
+                                        <a type="button" class="btn btn-primary btn-sm" href="task-edit.php?task-id=<?php echo $task_id  ?>&project-id=<?php echo $project_id ?>"><b>Edit</b></a>
                                         <a type="button" class="btn btn-danger btn-sm" href="delete-task.php?task-id=<?php echo $task_id  ?>&project-id=<?php echo $project_id ?>"><b>Delete</b></a>
                                     </td>
 
@@ -174,6 +186,35 @@ $tresult = $conn->query($task_sql);
 
                         </tbody>
                     </table>
+                    <!-- pagination -->
+                    <?php
+                    $query = " SELECT * from users";
+                    $pagination = $conn->query($query);
+                    $total_record = mysqli_num_rows($pagination);
+                    if ($total_record > 0) {
+                        $total_record;
+                        $total_page = ceil($total_record / $limit);
+                        echo '<ul class="pagination">';
+                        if ($page > 1) {
+                            echo '<li class="page-item">
+                                <a class="page-link" href="' . $link . 'projects/view.php?page=' . ($page - 1) .' & id='.$project_id.'" tabindex="-1">Previous</a>
+                            </li>';
+                        }
+                        for ($i = 1; $i <= $total_page; $i++) {
+                            if ($i ==  $page)
+                                $active = "active";
+                            else
+                                $active = "";
+                            echo '<li class="page-item ' . $active . '"><a class="page-link" href="' . $link . 'projects/view.php?page=' . $i . '& id=' .  $project_id  . ' " >' . $i . '</a></li>';
+                        }
+                        if ($total_page > $page) {
+                            echo '<li class="page-item">
+                            <a class="page-link" href="' . $link . 'projects/view.php?page=' . ($page + 1) . ' & id=' . $project_id .' " >Next</a>
+                             </li>';
+                        }
+
+                        echo ' </ul>';
+                    } ?>
                 </div>
             </div>
             <!-- task table -->
